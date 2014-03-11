@@ -29,7 +29,7 @@ public class GamePanel extends JPanel {
     private Font scoreFont, pauseFont;
     public static final Color bg = new Color(0, 158, 158);
     public static final int PIPE_W = 50, PIPE_H = 30;
-    private Image pipe;
+    private Image pipeHead, pipeLength;
 
     public GamePanel(FlappyBird fb, Bird bird, ArrayList<Rectangle> rects) {
         this.fb = fb;
@@ -39,7 +39,8 @@ public class GamePanel extends JPanel {
         pauseFont = new Font("Arial", Font.BOLD, 48);
         
         try {
-            pipe = ImageIO.read(new File("78px-Pipe.png"));
+        	pipeHead = ImageIO.read(new File("78px-Pipe.png"));
+        	pipeLength = ImageIO.read(new File("pipe_part.png"));
         }
         catch(IOException e) {
             e.printStackTrace();
@@ -54,14 +55,15 @@ public class GamePanel extends JPanel {
         for(Rectangle r : rects) {
             Graphics2D g2d = (Graphics2D) g;
             g2d.setColor(Color.GREEN);
-            g2d.fillRect(r.x, r.y, r.width, r.height);
+            //g2d.fillRect(r.x, r.y, r.width, r.height);
             AffineTransform old = g2d.getTransform();
             g2d.translate(r.x+PIPE_W/2, r.y+PIPE_H/2);
             if(r.y < FlappyBird.HEIGHT/2) {
                 g2d.translate(0, r.height);
                 g2d.rotate(Math.PI);
             }
-            g2d.drawImage(pipe, -PIPE_W/2, -PIPE_H/2, GamePanel.PIPE_W, GamePanel.PIPE_H, null);
+            g2d.drawImage(pipeHead, -PIPE_W/2, -PIPE_H/2, GamePanel.PIPE_W, GamePanel.PIPE_H, null);
+            g2d.drawImage(pipeLength, -PIPE_W/2, PIPE_H/2, GamePanel.PIPE_W, r.height, null);
             g2d.setTransform(old);
         }
         g.setFont(scoreFont);
