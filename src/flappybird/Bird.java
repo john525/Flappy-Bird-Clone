@@ -43,8 +43,8 @@ public class Bird {
     }
     
     public void reset() {
-        x = 640/2;
-        y = 640/2;
+        x = FlappyBird.WIDTH/2;
+        y = FlappyBird.HEIGHT/2;
         vx = vy = 0;
     }
 }
